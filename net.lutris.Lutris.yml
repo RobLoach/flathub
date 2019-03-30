@@ -43,6 +43,14 @@ add-extensions:
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
+  net.lutris.Lutris.wine:
+    directory: wine
+    add-ld-path: lib
+
+  net.lutris.Lutris.wine.compat32:
+    directory: wine/compat32
+    add-ld-path: lib
+
 cleanup:
   - "*.a"
   - "*.la"
@@ -275,3 +283,4 @@ modules:
     buildsystem: simple
     build-commands:
       - mkdir -p /app/lib/i386-linux-gnu
+      - mkdir -p /app/wine
