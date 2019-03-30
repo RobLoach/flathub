@@ -1,0 +1,71 @@
+id: net.lutris.Lutris.wine
+runtime: net.lutris.Lutris
+sdk: org.freedesktop.Sdk//18.08
+build-extension: true
+separate-locales: false
+appstream-compose: false
+build-options:
+    prefix: /app/wine
+    append-path: /app/wine/bin
+    append-ld-library-path: /app/lib
+    strip: true
+    no-debuginfo: false
+cleanup:
+  - /include
+  - /share/man
+  - /share/applications
+modules:
+
+  - name: wine
+    build-options:
+      config-opts:
+        - --libdir=/app/wine/lib
+      arch:
+        x86_64:
+          config-opts:
+            - --enable-win64
+    config-opts:
+      - --disable-win16
+      - --disable-tests
+      - --with-x
+      - --with-pulse
+      - --without-hal
+    post-install:
+      - case $FLATPAK_ARCH in
+          x86_64)
+            mv $FLATPAK_DEST/bin/wineserver{,64}
+          ;;
+          i386)
+            mv $FLATPAK_DEST/bin/wineserver{,32}
+          ;;
+        esac
+    cleanup:
+      - /share/man
+      - /share/applications
+    sources:
+      - type: git
+        url: "https://github.com/lutris/wine.git"
+        branch: tkg
+
+  - name: wineserver
+    buildsystem: simple
+    build-commands:
+      - ln -s $FLATPAK_DEST/wineserver $FLATPAK_DEST/bin/wineserver
+      - case $FLATPAK_ARCH in
+          x86_64)
+            ln -s bin/wineserver64 $FLATPAK_DEST/wineserver
+          ;;
+          i386)
+            ln -s bin/wineserver32 $FLATPAK_DEST/wineserver
+          ;;
+        esac
+
+  - name: compat32
+    only-arches:
+      - x86_64
+    buildsystem: simple
+    build-commands:
+      - mkdir -p $FLATPAK_DEST/compat32
+      - ln -srv $FLATPAK_DEST/compat32/bin/wine $FLATPAK_DEST/bin/wine
+      - ln -srv $FLATPAK_DEST/compat32/bin/wine-preloader $FLATPAK_DEST/bin/wine-preloader
+      - ln -srv $FLATPAK_DEST/compat32/bin/wineserver32 $FLATPAK_DEST/bin/wineserver32
