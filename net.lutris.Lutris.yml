@@ -152,11 +152,6 @@ modules:
             url: "https://github.com/python-pillow/Pillow/archive/5.4.1.tar.gz"
             sha256: d233c2e63414535281c572d2b4debd7de8a205b341ffc7db0f48f3f4d199fbc0
 
-  - name: lutris-app-environment
-    buildsystem: simple
-    build-commands:
-      - mkdir -p /app/lib/i386-linux-gnu
-
   - name: hwdata
     config-opts:
       - --datarootdir=/app/share
@@ -275,3 +270,8 @@ modules:
       - type: archive
         url: "http://deb.debian.org/debian/pool/main/f/fluid-soundfont/fluid-soundfont_3.1.orig.tar.gz"
         md5: 189bbdf70221018cbda536984b105dfa
+
+  - name: lutris-app-environment
+    buildsystem: simple
+    build-commands:
+      - mkdir -p /app/lib/i386-linux-gnu
