@@ -6,14 +6,22 @@ separate-locales: false
 appstream-compose: false
 build-options:
     prefix: /app/wine
-    append-path: /app/wine/bin
-    append-ld-library-path: /app/lib
+    prepend-path: /app/wine/bin
+    prepend-ld-library-path: /app/wine/lib
+    prepend-pkg-config-path: /app/wine/lib/pkgconfig
+    env:
+      C_INCLUDE_PATH: /app/wine/include:/app/include
+      CPLUS_INCLUDE_PATH: /app/wine/include:/app/include
     strip: true
     no-debuginfo: false
 cleanup:
+  - "*.a"
+  - "*.la"
   - /include
   - /share/man
   - /share/applications
+  - /lib/pkgconfig
+  - /lib/cmake
 modules:
 
   - name: wine
@@ -46,6 +54,30 @@ modules:
       - type: git
         url: "https://github.com/lutris/wine.git"
         branch: tkg
+    modules:
+
+      - name: vkd3d
+        sources:
+          - type: archive
+            url: "https://dl.winehq.org/vkd3d/source/vkd3d-1.1.tar.xz"
+            sha256: 495adc61cc80c65d54b2f5b52092ea05d3797cc2c17a610f0fc98457d2f56ab6
+        modules:
+
+          - name: SPIRV-Headers
+            buildsystem: cmake-ninja
+            sources:
+              - type: git
+                url: "https://github.com/KhronosGroup/SPIRV-Headers.git"
+                commit: 8bea0a266ac9b718aa0818d9e3a47c0b77c2cb23
+
+      - name: FAudio
+        buildsystem: cmake-ninja
+        config-opts:
+          - -DFFMPEG=ON
+        sources:
+          - type: archive
+            url: "https://github.com/FNA-XNA/FAudio/archive/19.02.tar.gz"
+            sha256: 514dd03672aa0241a7eee29e207a594e86cc9954940205489a8299cd1395ffaf
 
   - name: wineserver
     buildsystem: simple
