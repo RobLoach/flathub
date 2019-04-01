@@ -1,6 +1,6 @@
 id: net.lutris.Lutris.wine
 runtime: net.lutris.Lutris
-sdk: org.freedesktop.Sdk//18.08
+sdk: org.gnome.Sdk//3.32
 build-extension: true
 separate-locales: false
 appstream-compose: false
