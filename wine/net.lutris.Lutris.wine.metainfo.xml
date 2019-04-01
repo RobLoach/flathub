@@ -3,7 +3,11 @@
   <id>net.lutris.Lutris.wine</id>
   <extends>net.lutris.Lutris</extends>
   <name>Wine for Lutris</name>
+  <name xml:lang="pt_BR">Wine para Lutris</name>
+  <name xml:lang="es">Wine para Lutris</name>
   <summary>Wine from Tk-Glitch (with staging, esync and pba patches)</summary>
+  <summary xml:lang="pt_BR">Wine de Tk-Glitch (with staging, esync and pba patches)</summary>
+  <summary xml:lang="es">Wine de Tk-Glitch (with staging, esync and pba patches)</summary>
   <url type="homepage">https://github.com/lutris/wine</url>
   <project_license>LGPL-2.1</project_license>
   <metadata_license>CC0-1.0</metadata_license>
