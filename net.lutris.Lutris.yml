@@ -245,6 +245,8 @@ modules:
           - type: archive
             url: "https://github.com/qwertyquerty/pypresence/archive/3.1.0.tar.gz"
             sha256: d99e5f81f69f4a2262cac57173adca64981d0e9662dff38cb250159c1d248627
+          - type: patch
+            path: patches/pypresence-flatpaked-discord.patch
 
   - name: hwdata
     config-opts:
