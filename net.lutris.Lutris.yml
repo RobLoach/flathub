@@ -23,6 +23,7 @@ finish-args:
   - --persist=.wine
   - --filesystem=xdg-data/Steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
+  - --filesystem=xdg-run/app/com.discordapp.Discord
   - --env=PATH=/app/bin:/app/runners/bin:/usr/bin
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
@@ -235,6 +236,15 @@ modules:
           - type: archive
             url: "https://github.com/python-pillow/Pillow/archive/6.0.0.tar.gz"
             sha256: f0babf5d7072ea9923a3950cd7ea41b0008429b16584de7d95cc5550a2806cda
+
+      - name: pypresence
+        buildsystem: simple
+        build-commands:
+          - python3 setup.py install --prefix=/app --root=/
+        sources:
+          - type: archive
+            url: "https://github.com/qwertyquerty/pypresence/archive/3.1.0.tar.gz"
+            sha256: d99e5f81f69f4a2262cac57173adca64981d0e9662dff38cb250159c1d248627
 
   - name: hwdata
     config-opts:
