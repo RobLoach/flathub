@@ -74,11 +74,9 @@ modules:
     sources:
       - type: git
         url: "https://github.com/lutris/lutris.git"
-        tag: v0.5.2.1
+        commit: 780ef9713f91f8c09d59c3a0923bc2713722a7b0
       - type: patch
         path: patches/lutris-flatpak-support-pr2106.patch
-      - type: patch
-        path: patches/lutris-appdata-tags-pr2134.patch
     modules:
 
       - name: pygobject
@@ -242,9 +240,9 @@ modules:
         build-commands:
           - python3 setup.py install --prefix=/app --root=/
         sources:
-          - type: archive
-            url: "https://github.com/qwertyquerty/pypresence/archive/3.1.0.tar.gz"
-            sha256: d99e5f81f69f4a2262cac57173adca64981d0e9662dff38cb250159c1d248627
+          - type: git
+            url: "https://github.com/qwertyquerty/pypresence.git"
+            commit: f58ab0cc3b0c1bbe5ad76f05c2a67434f727f147
           - type: patch
             path: patches/pypresence-flatpaked-discord.patch
 
