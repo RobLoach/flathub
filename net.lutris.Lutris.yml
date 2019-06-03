@@ -29,6 +29,7 @@ finish-args:
   - --persist=.wine
   - --filesystem=xdg-data/Steam:ro
   - --filesystem=~/.var/app/com.valvesoftware.Steam:ro
+  - --filesystem=xdg-run/app/com.discordapp.Discord
   - --env=PATH=/app/bin:/app/runners/bin:/usr/bin
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
@@ -79,11 +80,9 @@ modules:
     sources:
       - type: git
         url: "https://github.com/lutris/lutris.git"
-        tag: v0.5.2.1
+        commit: 780ef9713f91f8c09d59c3a0923bc2713722a7b0
       - type: patch
         path: patches/lutris-flatpak-support-pr2106.patch
-      - type: patch
-        path: patches/lutris-appdata-tags-pr2134.patch
     modules:
 
       - name: pygobject
@@ -241,6 +240,17 @@ modules:
           - type: archive
             url: "https://github.com/python-pillow/Pillow/archive/6.0.0.tar.gz"
             sha256: f0babf5d7072ea9923a3950cd7ea41b0008429b16584de7d95cc5550a2806cda
+
+      - name: pypresence
+        buildsystem: simple
+        build-commands:
+          - python3 setup.py install --prefix=/app --root=/
+        sources:
+          - type: git
+            url: "https://github.com/qwertyquerty/pypresence.git"
+            commit: f58ab0cc3b0c1bbe5ad76f05c2a67434f727f147
+          - type: patch
+            path: patches/pypresence-flatpaked-discord.patch
 
   - name: hwdata
     config-opts:
